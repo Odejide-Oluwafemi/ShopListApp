@@ -8,7 +8,8 @@ class AddItemForm extends StatefulWidget {
   const AddItemForm(
       {Key? key, required this.newItemAdded, this.item, this.index})
       : super(key: key);
-  _AddItemFormState createState() => _AddItemFormState();
+  @override
+  State<AddItemForm> createState() => _AddItemFormState();
 }
 
 class _AddItemFormState extends State<AddItemForm> {
@@ -36,7 +37,7 @@ class _AddItemFormState extends State<AddItemForm> {
                 const SizedBox(width: 8),
                 Text(
                   widget.item != null ? "Edit Item" : "Create New Item",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -59,7 +60,7 @@ class _AddItemFormState extends State<AddItemForm> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                label: Text("Name"),
+                label: const Text("Name"),
               ),
               onSaved: (newValue) {
                 name = newValue;
@@ -75,7 +76,7 @@ class _AddItemFormState extends State<AddItemForm> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                label: Text("Unit Price"),
+                label: const Text("Unit Price"),
               ),
               onSaved: (newValue) {
                 unitPrice = double.parse(newValue.toString());
@@ -91,13 +92,13 @@ class _AddItemFormState extends State<AddItemForm> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                label: Text("Quantity"),
+                label: const Text("Quantity"),
               ),
               onSaved: (newValue) {
                 quantity = int.parse(newValue.toString());
               },
             ),
-            Expanded(child: const SizedBox(height: 15)),
+            const Expanded(child: SizedBox(height: 15)),
             GestureDetector(
               onTap: onFormSubmit,
               child: Container(
@@ -109,7 +110,7 @@ class _AddItemFormState extends State<AddItemForm> {
                 child: Center(
                     child: Text(
                   widget.item != null ? "Save Changes" : "Add Item",
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.w500,

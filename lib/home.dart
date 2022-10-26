@@ -10,8 +10,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Item> _shopItems = <Item>[
-    /* Item(
+  final List<Item> _shopItems = <Item>[];
+  /* Item(
       name: "Item 5",
       unitPrice: 12,
       quantity: 2,
@@ -21,7 +21,6 @@ class _HomePageState extends State<HomePage> {
       unitPrice: 1,
       quantity: 20,
     ), */
-  ];
 
   void addItem(Item item, int? index) {
     setState(() {
@@ -58,7 +57,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) => BottomSheet(
         builder: (_) {
-          return Container(
+          return SizedBox(
             height: 370,
             child: AddItemForm(
               newItemAdded: (item, idx) => addItem(item, index),
@@ -84,7 +83,7 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(
           elevation: 0,
           centerTitle: true,
-          title: Text(
+          title: const Text(
             "Shopping List",
             style: TextStyle(
               color: Colors.white,
@@ -94,7 +93,7 @@ class _HomePageState extends State<HomePage> {
         ),
         body: Column(
           children: [
-            _shopItems.length > 0
+            _shopItems.isNotEmpty
                 ? Row(
                     children: [
                       Expanded(
@@ -104,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      Text(
+                      const Text(
                         "Tap an Item to Edit it, Long Press to Delete",
                         style: TextStyle(
                           fontSize: 12,
@@ -121,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                   )
                 : Container(),
             Expanded(
-              child: _shopItems.length > 0
+              child: _shopItems.isNotEmpty
                   ? Container(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       child: ListView.separated(
@@ -139,12 +138,12 @@ class _HomePageState extends State<HomePage> {
                           deleteItem: () => deleteitem(index),
                         ),
                         separatorBuilder: (context, index) {
-                          return Divider(thickness: 1.7);
+                          return const Divider(thickness: 1.7);
                         },
                         itemCount: _shopItems.length,
                       ),
                     )
-                  : Center(
+                  : const Center(
                       child: Text("There's nothing on your list yet...",
                           style: TextStyle(
                             fontSize: 18,
@@ -153,8 +152,8 @@ class _HomePageState extends State<HomePage> {
                           )),
                     ),
             ),
-            _shopItems.length > 0
-                ? Container(
+            _shopItems.isNotEmpty
+                ? SizedBox(
                     height: 35,
                     child: Text(
                       "TOTAL: \$${getTotalItemCost().toStringAsFixed(2)}",
@@ -179,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                     color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     "Add An Item",
                     style: TextStyle(
@@ -198,11 +197,11 @@ class _HomePageState extends State<HomePage> {
 
   double getTotalItemCost() {
     double total = 0.0;
-    _shopItems.forEach((item) {
+    for (var item in _shopItems) {
       if (!item.isChecked) {
         total += item.total;
       }
-    });
+    }
 
     return total;
   }
